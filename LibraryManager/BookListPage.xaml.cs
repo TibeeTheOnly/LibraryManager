@@ -140,14 +140,19 @@ namespace LibraryManager
 
         private void DeleteBookButtonClick(object sender, RoutedEventArgs e)
         {
-            string selectedBook = BookListBox.SelectedItem.ToString();
-            string filePath = "books.txt";
+            if(BookListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Kérjük, válasszon ki egy könyvet a törléshez.");
+                return;
+            }
 
-            DeleteBook(selectedBook, filePath);
+            string selectedBook = BookListBox.SelectedItem.ToString();
+
+            DeleteBook(selectedBook);
             RefreshBookList();
         }
 
-        private void DeleteBook(string selectedBook, string filePath)
+        private void DeleteBook(string selectedBook)
         {
             foreach (Book book in Books)
             {
@@ -155,14 +160,6 @@ namespace LibraryManager
                 {
                     Books.Remove(book);
                     break;
-                }
-            }
-
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                foreach (Book book in Books)
-                {
-                    writer.WriteLine($"{book.Title};{book.Author};{book.Genre};{book.Year}");
                 }
             }
             RefreshBookList();
@@ -321,6 +318,9 @@ namespace LibraryManager
             {
                 return;
             }
+
+            BookListBox.Items.Clear();
+            Books.Clear();
 
             string[] lines = File.ReadAllLines(filePath);
             foreach (string line in lines)

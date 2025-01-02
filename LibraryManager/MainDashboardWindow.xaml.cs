@@ -25,6 +25,7 @@ namespace LibraryManager
             InitializeComponent();
             LoggedInUser = loggedInUser;
             MainFrame.Content = new ProfilePage(LoggedInUser);
+            CheckIfAdmin();
         }
 
         private void NavigateToProfilePageClick(object sender, RoutedEventArgs e)
