@@ -111,7 +111,7 @@ namespace LibraryManager
                 }
                 else
                 {
-                    DeleteBook(selectedBook, filePath); // Delete the old book
+                    DeleteBook(selectedBook); // Delete the old book
                     EditBook(new Book(titleTextBox.Text, authorTextBox.Text, categoryComboBox.SelectedItem.ToString(), year));
                 }
 
@@ -258,11 +258,6 @@ namespace LibraryManager
                 File.Create(filePath).Close();
             }
 
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine($"{book.Title};{book.Author};{book.Genre};{book.Year}");
-            }
-
             MessageBox.Show("Könyv hozzáadva: " + book.Title);
 
             RefreshBookList();
@@ -284,12 +279,7 @@ namespace LibraryManager
                 File.Create(filePath).Close();
             }
 
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine($"{book.Title};{book.Author};{book.Genre};{book.Year}");
-            }
-
-            MessageBox.Show("Könyv hozzáadva: " + book.Title);
+            MessageBox.Show("Könyv szerkesztve: " + book.Title);
 
             RefreshBookList();
         }
