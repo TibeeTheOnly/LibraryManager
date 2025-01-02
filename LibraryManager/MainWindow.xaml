@@ -6,7 +6,32 @@
         xmlns:local="clr-namespace:LibraryManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
+        <!-- Felhasználónév -->
+        <TextBlock Text="Felhasználónév:" Grid.Row="0" Grid.Column="0" 
+			   VerticalAlignment="Center" Margin="0, 0, 10, 0"/>
+        <TextBox x:Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Width="200"/>
+
+        <!-- Jelszó -->
+        <TextBlock Text="Jelszó:" Grid.Row="1" Grid.Column="0" 
+	   VerticalAlignment="Center" Margin="0, 0, 10, 0"/>
+        <PasswordBox x:Name="PasswordBox" Grid.Row="1" Grid.Column="1" Width="200"/>
+
+        <!-- Gombok-->
+        <Button Content="Bejelentkezés" Grid.Row="2" Grid.ColumnSpan="2" Width="150"
+			HorizontalAlignment="Center" Margin="0,10,0,0" Click="LoginClick"/>
+        <Button Content="Regisztráció" Grid.Row="3" Grid.ColumnSpan="2" Width="150"
+	HorizontalAlignment="Center" Margin="0,10,0,0" Click="OpenRegisterForm"/>
     </Grid>
 </Window>

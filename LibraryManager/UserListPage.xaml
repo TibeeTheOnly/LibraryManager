@@ -1,0 +1,17 @@
+﻿<Page x:Class="LibraryManager.UserListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LibraryManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserListPage">
+
+    <StackPanel Margin="20">
+        <TextBlock Text="Felhasználók listája" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        <ListBox x:Name="UserListBox" Height="300" SelectionChanged="UserListBox_SelectionChanged"/>
+        <Button Content="Jogosultság módosítása" Width="200" Margin="0,20,0,0"
+			HorizontalAlignment="Left" Click="Button_Click"/>
+    </StackPanel>
+</Page>
