@@ -8,27 +8,74 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BookListPage">
 
-    <Grid>
-        <StackPanel Margin="20">
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                <TextBlock Text="Könyvek listája" FontSize="24" FontWeight="Bold" Margin="0,0,270,10"/>
-                <ComboBox x:Name="CategoryComboBox" Width="200" Margin="10">
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style x:Key="ListBoxStyle" TargetType="ListBox">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="Background" Value="#F8F8F8"/>
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
+
+    <Border Background="White" CornerRadius="10" Padding="30">
+        <StackPanel>
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Könyvek listája" FontSize="24" FontWeight="Bold" 
+                           VerticalAlignment="Center"/>
+                <ComboBox x:Name="CategoryComboBox" Width="200" Grid.Column="1"
+                          Style="{StaticResource ComboBoxStyle}">
                     <ComboBoxItem Content="mind"/>
                     <ComboBoxItem Content="regény"/>
                     <ComboBoxItem Content="tudományos"/>
                     <ComboBoxItem Content="ismeretterjesztő"/>
                     <ComboBoxItem Content="egyéb"/>
                 </ComboBox>
-                <Button Content="Szűrés" Width="75" Margin="10" Click="FilterBooksClick"/>
-            </StackPanel>
-            <ListBox x:Name="BookListBox" Height="300"/>
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                <Button Content="Könyv Hozzáadása" Width="125" Margin="10" Click="AddBookButtonClick"/>
-                <Button Name="EditBookButton" Content="Könyv Szerkesztése" Width="125" Margin="10" Click="ChangeBookButtonClick" IsEnabled="False"/>
-                <Button Name="DeleteBookButton" Content="Könyv Törlése" Width="125" Margin="10" Click="DeleteBookButtonClick" IsEnabled="False"/>
-                <Button Name="ImportBooksButton" Content="Import" Width="50" Margin="10" Click="ImportBooksClick" IsEnabled="False"/>
-                <Button Name="ExportBooksButton" Content="Export" Width="50" Margin="10" Click="ExportBooksClick" IsEnabled="False"/>
+                <Button Content="Szűrés" Width="75" Grid.Column="2" 
+                        Style="{StaticResource ButtonStyle}" Click="FilterBooksClick"/>
+            </Grid>
+
+            <ListBox x:Name="BookListBox" Height="300" 
+                     Style="{StaticResource ListBoxStyle}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" 
+                        HorizontalAlignment="Center">
+                <Button Content="Könyv Hozzáadása" Width="175" 
+                        Style="{StaticResource ButtonStyle}" Click="AddBookButtonClick"/>
+                <Button Name="EditBookButton" Content="Könyv Szerkesztése" Width="175" 
+                        Style="{StaticResource ButtonStyle}" Click="ChangeBookButtonClick" 
+                        IsEnabled="False"/>
+                <Button Name="DeleteBookButton" Content="Könyv Törlése" Width="125" 
+                        Style="{StaticResource ButtonStyle}" Click="DeleteBookButtonClick" 
+                        IsEnabled="False"/>
+                <Button Name="ImportBooksButton" Content="Import" Width="75" 
+                        Style="{StaticResource ButtonStyle}" Click="ImportBooksClick" 
+                        IsEnabled="False"/>
+                <Button Name="ExportBooksButton" Content="Export" Width="75" 
+                        Style="{StaticResource ButtonStyle}" Click="ExportBooksClick" 
+                        IsEnabled="False"/>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Page>

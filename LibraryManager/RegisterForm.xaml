@@ -5,49 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManager"
         mc:Ignorable="d"
-        Title="RegisterForm" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+        Title="Library Manager Registration" Height="650" Width="450" 
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
 
-        <TextBlock Text="Felhasználónév:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"
-	   Margin="0,0,10,0"/>
-        <TextBox x:Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" Width="200"/>
+    <Window.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,10,5"/>
+        </Style>
 
-        <TextBlock Text="Jelszó:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
-  Margin="0,0,10,0"/>
-        <PasswordBox x:Name="PasswordBox" Grid.Row="1" Grid.Column="1" Width="200"/>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
 
-        <TextBlock Text="Jelszó megerősítő:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
-Margin="0,0,10,0"/>
-        <PasswordBox x:Name="ConfirmPasswordBox" Grid.Row="2" Grid.Column="1" Width="200"/>
+        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
 
-        <TextBlock Text="Név:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"
-  Margin="0,0,10,0"/>
-        <TextBox x:Name="NameTextBox" Grid.Row="3" Grid.Column="1" Width="200"/>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
 
-        <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"
-  Margin="0,0,10,0"/>
-        <TextBox x:Name="EmailTextBox" Grid.Row="4" Grid.Column="1" Width="200"/>
+        <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+        </Style>
+    </Window.Resources>
 
-        <CheckBox x:Name="TermsCheckBox" Content="Elfogadom a felhasználói feltételeket" 
-	  Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10,0,0" />
+    <Border Background="White" CornerRadius="10" Margin="20" Padding="30">
+        <StackPanel>
+            <TextBlock Text="Library Manager Registration" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
 
-        <Button Content="Regisztráció" Grid.Row="6" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center"
-	Margin="0,20,0,0" Click="RegisterUserClick"/>
-        <Button Content="Vissza" Grid.Row="7" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center"
-		Margin="0,20,0,0"/>
-    </Grid>
+            <TextBlock Text="Felhasználónév:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="UsernameTextBox" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Text="Jelszó:" Style="{StaticResource TextBlockStyle}"/>
+            <PasswordBox x:Name="PasswordBox" Style="{StaticResource PasswordBoxStyle}"/>
+
+            <TextBlock Text="Jelszó megerősítő:" Style="{StaticResource TextBlockStyle}"/>
+            <PasswordBox x:Name="ConfirmPasswordBox" Style="{StaticResource PasswordBoxStyle}"/>
+
+            <TextBlock Text="Név:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="NameTextBox" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Text="Email:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="EmailTextBox" Style="{StaticResource TextBoxStyle}"/>
+
+            <CheckBox x:Name="TermsCheckBox" Content="Elfogadom a felhasználói feltételeket" 
+                      Style="{StaticResource CheckBoxStyle}"/>
+
+            <Button Content="Regisztráció" Style="{StaticResource ButtonStyle}" Click="RegisterUserClick"/>
+            <Button Content="Vissza" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+    </Border>
 </Window>

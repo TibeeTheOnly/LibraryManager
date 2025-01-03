@@ -8,21 +8,49 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
 
-    <StackPanel Margin="20">
-        <TextBlock Text="Profil" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+    <Page.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
 
-        <TextBlock Text="Felhasználónév:"/>
-        <TextBox x:Name="UsernameTextBox" IsReadOnly="True" Margin="0,5,0,15"/>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
 
-        <TextBlock Text="Név:"/>
-        <TextBox x:Name="NameTextBox" Margin="0,5,0,15"/>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Page.Resources>
 
-        <TextBlock Text="Email:"/>
-        <TextBox x:Name="EmailTextBox" Margin="0,5,0,15"/>
+    <Border Background="White" CornerRadius="10" Padding="30">
+        <StackPanel>
+            <TextBlock Text="Profil" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
 
-        <TextBlock Text="Jogosultság:"/>
-        <TextBox x:Name="RoleTextBox" IsReadOnly="True" Margin="0,5,0,15"/>
+            <TextBlock Text="Felhasználónév:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="UsernameTextBox" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
 
-        <Button Content="Adatok mentése" Width="150" Margin="0,20,0,0" HorizontalAlignment="Left" Click="SaveProfile"/>
-    </StackPanel>
+            <TextBlock Text="Név:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="NameTextBox" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Text="Email:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="EmailTextBox" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Text="Jogosultság:" Style="{StaticResource TextBlockStyle}"/>
+            <TextBox x:Name="RoleTextBox" IsReadOnly="True" Style="{StaticResource TextBoxStyle}"/>
+
+            <Button Content="Adatok mentése" Width="200" Margin="0,20,0,0" 
+                    HorizontalAlignment="Left" Click="SaveProfile" 
+                    Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+    </Border>
 </Page>

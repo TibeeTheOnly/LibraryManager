@@ -49,6 +49,12 @@ namespace LibraryManager
 
         private void ChangeBookButtonClick(object sender, RoutedEventArgs e)
         {
+            if(BookListBox.SelectedItem == null)
+            {
+                MessageBox.Show("Kérjük, válasszon ki egy könyvet a szerkesztéshez.");
+                return;
+            }
+            
             string selectedBook = BookListBox.SelectedItem.ToString();
             Book bookToEdit = null;
             foreach (Book book in Books)
@@ -61,36 +67,81 @@ namespace LibraryManager
             }
             string filePath = "books.txt";
 
-            // Create a new window for book input
             Window inputWindow = new Window
             {
-                Title = "Könyv Szerkesztése",
-                Width = 300,
+                Title = "Könyv Hozzáadása",
+                Width = 350,
                 Height = 500,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F0F0"))
             };
 
-            // Create a stack panel to hold the input fields
-            StackPanel stackPanel = new StackPanel();
+            StackPanel stackPanel = new StackPanel { Margin = new Thickness(20) };
 
-            // Create input fields
+            Style textBlockStyle = new Style(typeof(TextBlock))
+            {
+                Setters = {
+                    new Setter(TextBlock.FontSizeProperty, 14d),
+                    new Setter(TextBlock.FontWeightProperty, FontWeights.SemiBold),
+                    new Setter(TextBlock.MarginProperty, new Thickness(0, 10, 0, 5))
+                }
+            };
 
-                TextBlock titleTextBlock = new TextBlock { Text = "Könyvcím *", Margin = new Thickness(10) };
-                TextBox titleTextBox = new TextBox { Margin = new Thickness(10), Text = bookToEdit.Title };
-                TextBlock authorTextBlock = new TextBlock { Text = "Szerző neve *", Margin = new Thickness(10) };
-                TextBox authorTextBox = new TextBox { Margin = new Thickness(10), Text = bookToEdit.Author };
-                TextBlock yearTextBlock = new TextBlock { Text = "Kiadási év *", Margin = new Thickness(10) };
-                TextBox yearTextBox = new TextBox { Margin = new Thickness(10), Text = bookToEdit.Year.ToString() };
-                TextBlock categoryTextBlock = new TextBlock { Text = "Kategória *", Margin = new Thickness(10) };
-                ComboBox categoryComboBox = new ComboBox { Margin = new Thickness(10) };
-                categoryComboBox.Items.Add("regény");
-                categoryComboBox.Items.Add("tudományos");
-                categoryComboBox.Items.Add("ismeretterjesztő");
-                categoryComboBox.Items.Add("egyéb");
-                categoryComboBox.SelectedItem = bookToEdit.Genre; // Set the selected category
+            Style textBoxStyle = new Style(typeof(TextBox))
+            {
+                Setters = {
+                    new Setter(TextBox.FontSizeProperty, 14d),
+                    new Setter(TextBox.PaddingProperty, new Thickness(5)),
+                    new Setter(TextBox.MarginProperty, new Thickness(0, 0, 0, 10))
+                }
+            };
+
+            Style comboBoxStyle = new Style(typeof(ComboBox))
+            {
+                Setters = {
+                    new Setter(ComboBox.FontSizeProperty, 14d),
+                    new Setter(ComboBox.PaddingProperty, new Thickness(5)),
+                    new Setter(ComboBox.MarginProperty, new Thickness(0, 0, 0, 10))
+                }
+            };
+
+            Style buttonStyle = new Style(typeof(Button))
+            {
+                Setters = {
+                    new Setter(Button.FontSizeProperty, 14d),
+                    new Setter(Button.FontWeightProperty, FontWeights.SemiBold),
+                    new Setter(Button.PaddingProperty, new Thickness(15, 10, 15, 10)),
+                    new Setter(Button.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#007ACC"))),
+                    new Setter(Button.ForegroundProperty, Brushes.White),
+                    new Setter(Button.BorderThicknessProperty, new Thickness(0)),
+                    new Setter(Button.CursorProperty, Cursors.Hand),
+                    new Setter(Button.MarginProperty, new Thickness(0, 20, 0, 0))
+                }
+            };
+
+            TextBox titleTextBox = new TextBox { Style = textBoxStyle, Text = bookToEdit.Title };
+            TextBox authorTextBox = new TextBox { Style = textBoxStyle, Text = bookToEdit.Author };
+            TextBox yearTextBox = new TextBox { Style = textBoxStyle, Text = bookToEdit.Year.ToString() };
+
+            stackPanel.Children.Add(new TextBlock { Text = "Könyvcím *", Style = textBlockStyle });
+            stackPanel.Children.Add(titleTextBox);
+
+            stackPanel.Children.Add(new TextBlock { Text = "Szerző neve *", Style = textBlockStyle });
+            stackPanel.Children.Add(authorTextBox);
+
+            stackPanel.Children.Add(new TextBlock { Text = "Kiadási év *", Style = textBlockStyle });
+            stackPanel.Children.Add(yearTextBox);
+
+            stackPanel.Children.Add(new TextBlock { Text = "Kategória *", Style = textBlockStyle });
+            ComboBox categoryComboBox = new ComboBox { Style = comboBoxStyle };
+            categoryComboBox.Items.Add("regény");
+            categoryComboBox.Items.Add("tudományos");
+            categoryComboBox.Items.Add("ismeretterjesztő");
+            categoryComboBox.Items.Add("egyéb");
+            stackPanel.Children.Add(categoryComboBox);
 
             // Create a button to submit the data
-            Button submitButton = new Button { Content = "Mentés", Margin = new Thickness(10) };
+            Button submitButton = new Button { Content = "Szerkesztés", Style = buttonStyle };
             submitButton.Click += (s, args) =>
             {
                 // Validate inputs
@@ -118,24 +169,17 @@ namespace LibraryManager
                 inputWindow.Close();
             };
 
-            // Add controls to the stack panel
-            stackPanel.Children.Add(titleTextBlock);
-            stackPanel.Children.Add(titleTextBox);
-            stackPanel.Children.Add(authorTextBlock);
-            stackPanel.Children.Add(authorTextBox);
-            stackPanel.Children.Add(yearTextBlock);
-            stackPanel.Children.Add(yearTextBox);
-            stackPanel.Children.Add(categoryTextBlock);
-            stackPanel.Children.Add(categoryComboBox);
             stackPanel.Children.Add(submitButton);
 
-            // Set the content of the window
-            inputWindow.Content = stackPanel;
+            inputWindow.Content = new Border
+            {
+                Background = Brushes.White,
+                CornerRadius = new CornerRadius(10),
+                Padding = new Thickness(20),
+                Child = stackPanel
+            };
 
-            // Show the input window
             inputWindow.ShowDialog();
-
-            RefreshBookList();
         }
 
         private void DeleteBookButtonClick(object sender, RoutedEventArgs e)
@@ -167,34 +211,80 @@ namespace LibraryManager
 
         private void AddBookButtonClick(object sender, RoutedEventArgs e)
         {
-            // Create a new window for book input
             Window inputWindow = new Window
             {
                 Title = "Könyv Hozzáadása",
-                Width = 300,
+                Width = 350,
                 Height = 500,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F0F0"))
             };
 
-            // Create a stack panel to hold the input fields
-            StackPanel stackPanel = new StackPanel();
+            StackPanel stackPanel = new StackPanel { Margin = new Thickness(20) };
 
-            // Create input fields
-            TextBlock titleTextBlock = new TextBlock { Text = "Könyvcím *", Margin = new Thickness(10) };
-            TextBox titleTextBox = new TextBox { Margin = new Thickness(10) };
-            TextBlock authorTextBlock = new TextBlock { Text = "Szerző neve *", Margin = new Thickness(10) };
-            TextBox authorTextBox = new TextBox { Margin = new Thickness(10) };
-            TextBlock yearTextBlock = new TextBlock { Text = "Kiadási év *", Margin = new Thickness(10) };
-            TextBox yearTextBox = new TextBox { Margin = new Thickness(10) };
-            TextBlock categoryTextBlock = new TextBlock { Text = "Kategória *", Margin = new Thickness(10) };
-            ComboBox categoryComboBox = new ComboBox { Margin = new Thickness(10) };
+            Style textBlockStyle = new Style(typeof(TextBlock))
+            {
+                Setters = {
+                    new Setter(TextBlock.FontSizeProperty, 14d),
+                    new Setter(TextBlock.FontWeightProperty, FontWeights.SemiBold),
+                    new Setter(TextBlock.MarginProperty, new Thickness(0, 10, 0, 5))
+                }
+            };
+
+            Style textBoxStyle = new Style(typeof(TextBox))
+            {
+                Setters = {
+                    new Setter(TextBox.FontSizeProperty, 14d),
+                    new Setter(TextBox.PaddingProperty, new Thickness(5)),
+                    new Setter(TextBox.MarginProperty, new Thickness(0, 0, 0, 10))
+                }
+            };
+
+            Style comboBoxStyle = new Style(typeof(ComboBox))
+            {
+                Setters = {
+                    new Setter(ComboBox.FontSizeProperty, 14d),
+                    new Setter(ComboBox.PaddingProperty, new Thickness(5)),
+                    new Setter(ComboBox.MarginProperty, new Thickness(0, 0, 0, 10))
+                }
+            };
+
+            Style buttonStyle = new Style(typeof(Button))
+            {
+                Setters = {
+                    new Setter(Button.FontSizeProperty, 14d),
+                    new Setter(Button.FontWeightProperty, FontWeights.SemiBold),
+                    new Setter(Button.PaddingProperty, new Thickness(15, 10, 15, 10)),
+                    new Setter(Button.BackgroundProperty, new SolidColorBrush((Color)ColorConverter.ConvertFromString("#007ACC"))),
+                    new Setter(Button.ForegroundProperty, Brushes.White),
+                    new Setter(Button.BorderThicknessProperty, new Thickness(0)),
+                    new Setter(Button.CursorProperty, Cursors.Hand),
+                    new Setter(Button.MarginProperty, new Thickness(0, 20, 0, 0))
+                }
+            };
+
+            TextBox titleTextBox = new TextBox { Style = textBoxStyle };
+            TextBox authorTextBox = new TextBox { Style = textBoxStyle };
+            TextBox yearTextBox = new TextBox { Style = textBoxStyle };
+
+            stackPanel.Children.Add(new TextBlock { Text = "Könyvcím *", Style = textBlockStyle });
+            stackPanel.Children.Add(titleTextBox);
+
+            stackPanel.Children.Add(new TextBlock { Text = "Szerző neve *", Style = textBlockStyle });
+            stackPanel.Children.Add(authorTextBox);
+
+            stackPanel.Children.Add(new TextBlock { Text = "Kiadási év *", Style = textBlockStyle });
+            stackPanel.Children.Add(yearTextBox);
+
+            stackPanel.Children.Add(new TextBlock { Text = "Kategória *", Style = textBlockStyle });
+            ComboBox categoryComboBox = new ComboBox { Style = comboBoxStyle };
             categoryComboBox.Items.Add("regény");
             categoryComboBox.Items.Add("tudományos");
             categoryComboBox.Items.Add("ismeretterjesztő");
             categoryComboBox.Items.Add("egyéb");
+            stackPanel.Children.Add(categoryComboBox);
 
-            // Create a button to submit the data
-            Button submitButton = new Button { Content = "Hozzáadás", Margin = new Thickness(10) };
+            Button submitButton = new Button { Content = "Hozzáadás", Style = buttonStyle };
             submitButton.Click += (s, args) =>
             {
                 // Validate inputs
@@ -215,33 +305,25 @@ namespace LibraryManager
                 }
                 else
                 {
-                    AddBook(new Book(titleTextBox.Text, authorTextBox.Text, categoryComboBox.SelectedItem.ToString(), year));                    
+                    AddBook(new Book(titleTextBox.Text, authorTextBox.Text, categoryComboBox.SelectedItem.ToString(), year));
                 }
-
-                // Here you can add the book to your data source
-                // Example: AddBook(new Book(titleTextBox.Text, authorTextBox.Text, year, categoryComboBox.SelectedItem.ToString()));
 
                 inputWindow.Close();
             };
-
-            // Add controls to the stack panel
-            stackPanel.Children.Add(titleTextBlock);
-            stackPanel.Children.Add(titleTextBox);
-            stackPanel.Children.Add(authorTextBlock);
-            stackPanel.Children.Add(authorTextBox);
-            stackPanel.Children.Add(yearTextBlock);
-            stackPanel.Children.Add(yearTextBox);
-            stackPanel.Children.Add(categoryTextBlock);
-            stackPanel.Children.Add(categoryComboBox);
             stackPanel.Children.Add(submitButton);
 
-            // Set the content of the window
-            inputWindow.Content = stackPanel;
+            inputWindow.Content = new Border
+            {
+                Background = Brushes.White,
+                CornerRadius = new CornerRadius(10),
+                Padding = new Thickness(20),
+                Child = stackPanel
+            };
 
-            // Show the input window
             inputWindow.ShowDialog();
         }
-        
+
+
         void AddBook(Book book)
         {
             // Assuming you have a list to store books

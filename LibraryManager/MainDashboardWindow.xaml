@@ -5,15 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManager"
         mc:Ignorable="d"
-        Title="MainDashboardWindow" Height="650" Width="1300" WindowStartupLocation="CenterScreen">
-    <DockPanel>
-        <!-- Navigációs menüt-->
-        <StackPanel DockPanel.Dock="Left" Width="200" Background="#fff">
-            <Button Content="Profil" Height="50" Margin="10" Click="NavigateToProfilePageClick"/>
-            <Button Name="UserListPageButton" Content="Felhasználók listája" Height="50" Margin="10" Click="NavigateToUsersListPageClick" IsEnabled="False"/>
-            <Button Content="Könyvek" Height="50" Margin="10" Click="NavigateToBookListPageClick"/>
-            <Button Content="Kijelentkezés" Height="50" Margin="10" Click="LogoutClick" Background="#FFFF5A5A"/>
-        </StackPanel>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-    </DockPanel>
+        Title="Library Manager Dashboard" Height="650" Width="1300" 
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F0F0">
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005A9E"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#CCCCCC"/>
+                    <Setter Property="Foreground" Value="#666666"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Navigation Menu -->
+        <Border Grid.Column="0" Background="White" BorderBrush="#DDDDDD" BorderThickness="0,0,1,0">
+            <StackPanel Margin="20">
+                <TextBlock Text="Library Manager" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+                <Button Content="Profil" Style="{StaticResource MenuButtonStyle}" Click="NavigateToProfilePageClick"/>
+                <Button Name="UserListPageButton" Content="Felhasználók listája" Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavigateToUsersListPageClick" IsEnabled="False"/>
+                <Button Content="Könyvek" Style="{StaticResource MenuButtonStyle}" Click="NavigateToBookListPageClick"/>
+                <Button Content="Kijelentkezés" Style="{StaticResource MenuButtonStyle}" Click="LogoutClick" 
+                        Background="#FFFF5A5A" Margin="0,20,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Border Grid.Column="1" Background="White" Margin="20" CornerRadius="10">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        </Border>
+    </Grid>
 </Window>

@@ -8,13 +8,41 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserListPage">
 
-    <StackPanel Margin="20">
-        <TextBlock Text="Felhasználók listája" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
-        <ListBox x:Name="UserListBox" Height="300" SelectionChanged="UserListBox_SelectionChanged"/>
-        <StackPanel Margin="20" Orientation="Horizontal">
-            <Button Content="Jogosultság módosítása" Width="200" Margin="0,10,20,0"
-	HorizontalAlignment="Left" Click="Button_Click"/>
-            <Button Content="Felhasználó törlése" Width="200" Margin="0,10,0,0" Click="DeleteUserButtonClicked"/>
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,10,10,0"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+
+        <Style x:Key="ListBoxStyle" TargetType="ListBox">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="Background" Value="#F8F8F8"/>
+        </Style>
+    </Page.Resources>
+
+    <Border Background="White" CornerRadius="10" Padding="30">
+        <StackPanel>
+            <TextBlock Text="Felhasználók listája" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+            <ListBox x:Name="UserListBox" Height="300" SelectionChanged="UserListBox_SelectionChanged"
+                     Style="{StaticResource ListBoxStyle}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Button Content="Jogosultság módosítása" 
+                        Style="{StaticResource ButtonStyle}"
+                        Click="Button_Click"/>
+                <Button Content="Felhasználó törlése" 
+                        Style="{StaticResource ButtonStyle}"
+                        Click="DeleteUserButtonClicked"/>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Border>
 </Page>
