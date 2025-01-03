@@ -11,7 +11,10 @@
     <StackPanel Margin="20">
         <TextBlock Text="Felhasználók listája" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
         <ListBox x:Name="UserListBox" Height="300" SelectionChanged="UserListBox_SelectionChanged"/>
-        <Button Content="Jogosultság módosítása" Width="200" Margin="0,20,0,0"
-			HorizontalAlignment="Left" Click="Button_Click"/>
+        <StackPanel Margin="20" Orientation="Horizontal">
+            <Button Content="Jogosultság módosítása" Width="200" Margin="0,10,20,0"
+	HorizontalAlignment="Left" Click="Button_Click"/>
+            <Button Content="Felhasználó törlése" Width="200" Margin="0,10,0,0" Click="DeleteUserButtonClicked"/>
+        </StackPanel>
     </StackPanel>
 </Page>

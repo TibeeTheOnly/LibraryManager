@@ -78,5 +78,25 @@ namespace LibraryManager
                 UserListBox.SelectedItem = null;
             }
         }
+
+        private void DeleteUserButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var selectedUser = UserListBox.SelectedItem as string;
+            string username = selectedUser.Split(' ')[0].Trim();
+
+            if(LoggedInUser.Username != username)
+            {
+                Users = Users.Where(u => u.Username != username).ToList();
+                File.WriteAllLines("users.txt", Users.Select(u => u.ToString()));
+                UserListBox.ItemsSource = Users.Select(u => $"{u.Username} - {u.Role}");
+                MessageBox.Show("Felhasználó törölve!", "Siker", MessageBoxButton.OK,
+                                       MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Nem törölheted a saját felhasználódat!",
+                                       "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
